@@ -6,10 +6,10 @@ namespace ExternalServices.Interface
 {
     public interface IBookService
     {
-        Task CreateBook(Book book);
-        Task UpdateBook(int id, Book book);
-        Task GetAllBooks();
-        Task GetBook(int id);
-        Task DeleteBook(int id);
+        Task<OperationResponse> CreateBook(Book book);
+        Task<OperationResponse> UpdateBook(int id, Book book);
+        Task<OperationResponse> GetAllBooks();
+        Task<OperationResponse> GetBook(int id);
+        Task<OperationResponse> DeleteBook(int id);
     }
 }
