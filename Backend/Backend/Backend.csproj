@@ -12,4 +12,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ExternalServices\ExternalServices.csproj" />
+  </ItemGroup>
+
 </Project>
