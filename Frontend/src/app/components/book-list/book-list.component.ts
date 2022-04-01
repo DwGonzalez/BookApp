@@ -11,17 +11,54 @@ import { BookService } from 'src/app/services/book.service';
 export class BookListComponent implements OnInit {
 
   bookList: Book[] = [];
-  loading!: true;
+  loading: boolean = true;
 
   constructor(private _bookService: BookService) { }
 
   ngOnInit(): void {
-    this.getAllBoks();
+    this.getAllBooks();
   }
 
-  getAllBoks() {
-    this._bookService.getBooks().subscribe(d => { console.log(d) },
-      (error) => { alert(error.message); })
+  getAllBooks() {
+    this._bookService.getBooks().subscribe(d => {
+      console.log(d)
+      this.loading = false;
+    }, err => {
+      console.log(err.message);
+    })
   }
+
+  getBook(id: number) {
+    this._bookService.getBook(id).subscribe(b => {
+      console.log(b);
+    }, err => {
+      console.log(err.message);
+    })
+  }
+
+  addBook(book: Book) {
+    this._bookService.addBook(book).subscribe(b => {
+      console.log(b);
+    }, err => {
+      console.log(err.message);
+    })
+  }
+
+  deleteBook(id: number) {
+    this._bookService.deleteBook(id).subscribe(b => {
+      console.log(b);
+    }, err => {
+      console.log(err.message);
+    })
+  }
+
+  updateBook(id: number, book: Book) {
+    this._bookService.updateBook(id, book).subscribe(b => {
+      console.log(`id: ${id}, book: ${book}`);
+    }, err => {
+      console.log(err.message);
+    })
+  }
+
 
 }
