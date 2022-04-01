@@ -25,11 +25,10 @@
             </div>
             <div class="mb-3">
                 <label for="publishDate" class="form-label">Publish Date</label>
-                <input type="datetime" class="form-control" id="publishDate" formControlName="publishDate">
+                <input type="date" class="form-control" id="publishDate" formControlName="publishDate">
             </div>
-            <button (click)="updateBook()" type="button" class="btn btn-info"
-                [disabled]="!isEditing || formBook.invalid">Edit</button>
-            <!-- <button type="submit" class="btn btn-primary">Save</button> -->
+            <button type="submit" class="btn btn-primary" [disabled]="formBook.invalid"
+                (click)="addBook()">Save</button>
         </form>
     </div>
 </div>
