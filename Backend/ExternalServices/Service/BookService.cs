@@ -17,12 +17,12 @@ namespace ExternalServices.Service
         static BookService()
         {
             _client = new HttpClient();
-            _client.BaseAddress = new Uri("https://fakerestapi.azurewebsites.net/api");
+            _client.BaseAddress = new Uri("https://fakerestapi.azurewebsites.net");
         }
 
         public async Task<OperationResponse> CreateBook(Book book)
         {
-            var result = await _client.PostAsJsonAsync("/v1/Books", book);
+            var result = await _client.PostAsJsonAsync("/api/v1/Books", book);
 
             var op = new OperationResponse();
             op.StatusCode = Convert.ToInt32(result.StatusCode);
@@ -35,7 +35,7 @@ namespace ExternalServices.Service
 
         public async Task<OperationResponse> DeleteBook(int id)
         {
-            var result = await _client.DeleteAsync($"/v1/Books/{id}");
+            var result = await _client.DeleteAsync($"/api/v1/Books/{id}");
 
             var op = new OperationResponse();
             op.StatusCode = Convert.ToInt32(result.StatusCode);
@@ -47,7 +47,7 @@ namespace ExternalServices.Service
 
         public async Task<OperationResponse> GetAllBooks()
         {
-            var result = await _client.GetAsync("/v1/Books");
+            var result = await _client.GetAsync("/api/v1/Books");
 
             var op = new OperationResponse();
             op.StatusCode = Convert.ToInt32(result.StatusCode);
@@ -59,7 +59,7 @@ namespace ExternalServices.Service
 
         public async Task<OperationResponse> GetBook(int id)
         {
-            var result = await _client.GetAsync($"/v1/Books/{id}");
+            var result = await _client.GetAsync($"/api/v1/Books/{id}");
 
             var op = new OperationResponse();
             op.StatusCode = Convert.ToInt32(result.StatusCode);
@@ -71,7 +71,7 @@ namespace ExternalServices.Service
 
         public async Task<OperationResponse> UpdateBook(int id, Book book)
         {
-            var result = await _client.PutAsJsonAsync($"/v1/Books/{id}", book);
+            var result = await _client.PutAsJsonAsync($"/api/v1/Books/{id}", book);
 
             var op = new OperationResponse();
             op.StatusCode = Convert.ToInt32(result.StatusCode);

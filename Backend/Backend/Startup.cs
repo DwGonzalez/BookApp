@@ -32,7 +32,7 @@ namespace Backend
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Backend", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookAPI Backend", Version = "v1" });
             });
         }
 
