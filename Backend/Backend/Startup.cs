@@ -1,3 +1,5 @@
+using ExternalServices.Interface;
+using ExternalServices.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,11 +28,11 @@ namespace Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddTransient<IBookService, BookService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Backend", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookAPI Backend", Version = "v1" });
             });
         }
 

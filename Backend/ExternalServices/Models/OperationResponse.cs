@@ -1,4 +1,4 @@
-﻿namespace Backend.Models
+﻿namespace ExternalServices.Models
 {
     public class OperationResponse
     {

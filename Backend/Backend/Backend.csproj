@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\ExternalServices\ExternalServices.csproj" />
   </ItemGroup>
 
 </Project>

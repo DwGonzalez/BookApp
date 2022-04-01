@@ -1,5 +1,5 @@
-﻿using Backend.Models;
-using ExternalServices.Interface;
+﻿using ExternalServices.Interface;
+using ExternalServices.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +17,12 @@ namespace ExternalServices.Service
         static BookService()
         {
             _client = new HttpClient();
-            _client.BaseAddress = new Uri("https://fakerestapi.azurewebsites.net/api");
+            _client.BaseAddress = new Uri("https://fakerestapi.azurewebsites.net");
         }
 
         public async Task<OperationResponse> CreateBook(Book book)
         {
-            var result = await _client.PostAsJsonAsync("/v1/Books", book);
+            var result = await _client.PostAsJsonAsync("/api/v1/Books", book);
 
             var op = new OperationResponse();
             op.StatusCode = Convert.ToInt32(result.StatusCode);
@@ -35,7 +35,7 @@ namespace ExternalServices.Service
 
         public async Task<OperationResponse> DeleteBook(int id)
         {
-            var result = await _client.DeleteAsync($"/v1/Books/{id}");
+            var result = await _client.DeleteAsync($"/api/v1/Books/{id}");
 
             var op = new OperationResponse();
             op.StatusCode = Convert.ToInt32(result.StatusCode);
@@ -45,20 +45,41 @@ namespace ExternalServices.Service
             return op;
         }
 
-        public Task<OperationResponse> GetAllBooks()
+        public async Task<OperationResponse> GetAllBooks()
         {
-            throw new NotImplementedException();
+            var result = await _client.GetAsync("/api/v1/Books");
+
+            var op = new OperationResponse();
+            op.StatusCode = Convert.ToInt32(result.StatusCode);
+            op.Success = result.IsSuccessStatusCode;
+            op.Data = await result.Content.ReadFromJsonAsync<List<Book>>();
+
+            return op;
         }
 
-        public Task<OperationResponse> GetBook(int id)
+        public async Task<OperationResponse> GetBook(int id)
         {
-            throw new NotImplementedException();
+            var result = await _client.GetAsync($"/api/v1/Books/{id}");
+
+            var op = new OperationResponse();
+            op.StatusCode = Convert.ToInt32(result.StatusCode);
+            op.Success = result.IsSuccessStatusCode;
+            op.Data = await result.Content.ReadFromJsonAsync<Book>();
+
+            return op;
         }
 
-        public Task<OperationResponse> UpdateBook(int id, Book book)
+        public async Task<OperationResponse> UpdateBook(int id, Book book)
         {
+            var result = await _client.PutAsJsonAsync($"/api/v1/Books/{id}", book);
 
-            throw new NotImplementedException();
+            var op = new OperationResponse();
+            op.StatusCode = Convert.ToInt32(result.StatusCode);
+            op.Success = result.IsSuccessStatusCode;
+            op.Message = result.IsSuccessStatusCode ? "Book updated" : "Something went wrong!";
+            op.Data = await result.Content.ReadFromJsonAsync<Book>();
+
+            return op;
         }
     }
 }

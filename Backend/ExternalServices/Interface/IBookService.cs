@@ -1,5 +1,4 @@
-﻿using Backend.Models;
-using System;
+﻿using ExternalServices.Models;
 using System.Threading.Tasks;
 
 namespace ExternalServices.Interface
