@@ -30,6 +30,15 @@ namespace Backend
         {
             services.AddTransient<IBookService, BookService>();
             services.AddControllers();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                  "AngularApp",
+                  builder => builder.WithOrigins("http://localhost:4200")
+                  .AllowAnyMethod()
+                  .AllowAnyHeader()
+                  .AllowCredentials());
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookAPI Backend", Version = "v1" });
@@ -45,6 +54,7 @@ namespace Backend
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Backend v1"));
             }
+            app.UseCors("AngularApp");
 
             app.UseHttpsRedirection();
 
